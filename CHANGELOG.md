@@ -1,5 +1,11 @@
 # Changelog
 
+## Build compatibility fixes (2026-10-18)
+- Updated all Media3 modules from 1.5.1 to 1.8.0 to match the audio-gain and static-overlay APIs used by the source.
+- Corrected the SRT blank-line regex to use a Kotlin raw string, avoiding the unsupported `\s` escape.
+- Updated Android SDK setup to explicitly request `platform-tools`, avoiding the action default that attempted to install the obsolete `tools` package.
+- These source fixes are not a claim that the full Android APK build has passed; verify with GitHub Actions.
+
 ## 0.2.0 — editing workflow update
 
 - Added a playhead slider, jump-to-start, and approximate 33 ms seek buttons.

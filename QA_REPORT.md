@@ -31,3 +31,9 @@ Do not publish a release until `Android CI` passes on GitHub and a set of real t
 - Connected queued clips to Media3 `Composition` export; optional background audio is configured as a looping audio-only sequence with a `GainProcessor`.
 - Re-ran the pure Kotlin domain compilation after changes; this script does not compile Android/Compose/Media3 APIs.
 - Still unverified: full `assembleDebug`, Android ActivityResult/Compose compilation, Media3 composition export on codecs/devices, audio mixing quality, permissions edge cases and real-device UX. GitHub Actions is the next full-build gate.
+## Build error fixes prepared (2026-10-18)
+
+- Media3 dependencies now use a single aligned version (`1.8.0`), which provides `DefaultGainProvider`, `GainProcessor`, and `StaticOverlaySettings` used by the source.
+- Corrected Kotlin SRT regex escaping by using a raw string literal.
+- Updated Android SDK setup to set `packages: platform-tools` explicitly so setup does not attempt to install the obsolete `tools` SDK package.
+- The pure Kotlin validation script passes after the edits. The complete Android Gradle build has not been run in this environment; use GitHub Actions to confirm compilation and packaging.

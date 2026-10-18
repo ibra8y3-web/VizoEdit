@@ -12,7 +12,7 @@ data class SubtitleCue(val startMs: Long, val endMs: Long, val text: String) {
 object SrtCodec {
     private val time = Regex("(\\d{2,}):(\\d{2}):(\\d{2})[,.](\\d{3})")
     fun parse(srt: String): List<SubtitleCue> {
-        val blocks = srt.trim().replace("\r\n", "\n").split(Regex("\n\s*\n")).filter { it.isNotBlank() }
+        val blocks = srt.trim().replace("\r\n", "\n").split(Regex("""\n\s*\n""")).filter { it.isNotBlank() }
         val cues = blocks.map { block ->
             val lines = block.lines()
             require(lines.size >= 3) { "Invalid SRT block" }

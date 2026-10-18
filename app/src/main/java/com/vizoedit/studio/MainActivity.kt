@@ -547,14 +547,13 @@ private fun VizoEditApp() {
                                             ))
                                             .build()
                                     }
-                                    val videoSequence = EditedMediaItemSequence.withAudioAndVideoFrom(editedItems)
+                                    val videoSequence = EditedMediaItemSequence.Builder(editedItems).build()
                                     val composition = if (backgroundAudioUri != null) {
                                         val musicGain = GainProcessor(DefaultGainProvider.Builder(backgroundAudioVolume).build())
                                         val backgroundTrack = EditedMediaItem.Builder(MediaItem.fromUri(backgroundAudioUri!!))
                                             .setEffects(Effects(listOf(musicGain), emptyList()))
                                             .build()
-                                        val loopingAudioSequence = EditedMediaItemSequence.withAudioFrom(listOf(backgroundTrack))
-                                            .buildUpon().setIsLooping(true).build()
+                                        val loopingAudioSequence = EditedMediaItemSequence.Builder(listOf(backgroundTrack)).setIsLooping(true).build()
                                         Composition.Builder(listOf(videoSequence, loopingAudioSequence)).build()
                                     } else {
                                         Composition.Builder(listOf(videoSequence)).build()

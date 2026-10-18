@@ -428,7 +428,7 @@ private fun VizoEditApp() {
                                     try {
                                         val directory = File(context.filesDir, "frames").apply { if (!exists() && !mkdirs()) throw java.io.IOException("تعذر إنشاء مجلد الصور") }
                                         val output = File(directory, "frame_${System.currentTimeMillis()}.png")
-                                        FileOutputStream(output).use { stream -> FrameExtractor.writePng(context.contentResolver, uri, (player?.currentPosition ?: startMs).coerceIn(0L, durationMs), stream) }
+                                        FileOutputStream(output).use { stream -> FrameExtractor.writePng(context, uri, (player?.currentPosition ?: startMs).coerceIn(0L, durationMs), stream) }
                                         exportStatus = "تم استخراج إطار PNG: ${output.name}"
                                         Toast.makeText(context, "تم حفظ الإطار داخل مجلد التطبيق", Toast.LENGTH_LONG).show()
                                     } catch (e: Exception) {
@@ -555,9 +555,9 @@ private fun VizoEditApp() {
                                             .build()
                                         val loopingAudioSequence = EditedMediaItemSequence.withAudioFrom(listOf(backgroundTrack))
                                             .buildUpon().setIsLooping(true).build()
-                                        Composition.Builder(videoSequence, loopingAudioSequence).build()
+                                        Composition.Builder(listOf(videoSequence, loopingAudioSequence)).build()
                                     } else {
-                                        Composition.Builder(videoSequence).build()
+                                        Composition.Builder(listOf(videoSequence)).build()
                                     }
                                     val transformer = Media3ExportFactory.createBuilder(context, activeSettings)
                                         .addListener(object : Transformer.Listener {
